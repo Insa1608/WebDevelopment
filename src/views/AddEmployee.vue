@@ -15,7 +15,7 @@
             label="First Name"
             hide-details
             required
-          ></v-text-field>
+          >{{  }}</v-text-field>
         </v-col>
         <v-col
           cols="12"
@@ -200,6 +200,7 @@
 </template>
   
 <script>
+
     export default {
     data: () => ({
       date: new Date().toISOString().substr(0, 10),
@@ -221,7 +222,7 @@
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'Invalid e-mail.'
           },
-        },
+        }
       }
     },
     reset: function() {
