@@ -1,8 +1,8 @@
 let express = require('express'),
-cors = require('cors'),
-mongoose = require('mogoose'),
-database = require('../database'),
-bodyParser = require('body-parser');
+    cors = require('cors'),
+    mongoose = require('mogoose'),
+    database = require('../database'),
+    bodyParser = require('body-parser');
 
 //connect mongoDB
 mongoose.Promise = global.Promise;
@@ -37,6 +37,6 @@ const server = app.listen(port, () => {
 //error handler
 app.use(function(err, req, res, next) {
     console.error(err.message);
-    if(!err.statusCode) err.statusCode = 500;
+    if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).send(err.message);
-})
+});
