@@ -11,7 +11,7 @@
           <v-text-field
             v-model="firstname"
             :counter="10"
-            :rules="nameRules"
+            :rules="[rules.required]"
             label="First Name"
             hide-details
             required
@@ -24,7 +24,7 @@
           <v-text-field
             v-model="lastname"
             :counter="10"
-            :rules="nameRules"
+            :rules="[rules.required]"
             label="Last Name"
             hide-details
             required
@@ -36,9 +36,8 @@
         >
           <v-text-field
             v-model="email"
-            :rules="emailRules"
+            :rules="[rules.required, rules.email]"
             label="E-Mail"
-            hide-details
             required
           ></v-text-field>
         </v-col>
@@ -55,7 +54,7 @@
           <v-text-field
             v-model="city"
             :counter="10"
-            :rules="nameRules"
+            :rules="[rules.required]"
             label="City"
             hide-details
             required
@@ -68,7 +67,7 @@
           <v-text-field
             v-model="postalcode"
             :counter="10"
-            :rules="Number"
+            :rules="[rules.required]"
             label="Postal Code"
             hide-details
             required
@@ -80,7 +79,7 @@
         >
           <v-text-field
             v-model="address"
-            :rules="nameRules"
+            :rules="[rules.required]"
             label="Address"
             hide-details
             required
@@ -202,62 +201,39 @@
   
 <script>
     export default {
-      name: 'Home',
     data: () => ({
       date: new Date().toISOString().substr(0, 10),
       menu: false,
       modal: false,
       menu2: false
     }),
-    created() {
-      // Verbindung zur MongoDB herstellen
-      mongoose.connect('mongodb+srv://roster_user:D0w1rKmPqq6QYx46@roster.hwic3bh.mongodb.net/?retryWrites=true&w=majority&appName=roster', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      })
-        .then(() => {
-          console.log('Verbindung zur MongoDB erfolgreich hergestellt');
-          // Führe hier weitere Aktionen aus, die von der MongoDB-Verbindung abhängen
-        })
-        .catch((error) => {
-          console.error('Fehler beim Herstellen der Verbindung zur MongoDB:', error);
-        });
-    },
-    computed: {
-    },
-    watch: {
-    },
-    methods: {
-      save: function(){
-        if (!this.firstName && !this.lastname) {
-          return {
-            'background-color': 'gray',
-             cursor: 'default'
-          }
-        } else {
-          // HTTP-Anfrage an das Backend senden
-        axios.post('/api/data', this.data)
-        .then(response => {
-          console.log('Daten erfolgreich gespeichert:', response.data);
-          // Weitere erforderliche Aktionen nach dem Speichern
-          this.reset();
-        })
-        .catch(error => {
-          console.error('Fehler beim Speichern der Daten:', error);
-        });
-        } 
-      },
-      reset: function() {
-          this.firstname = '',
-          this.lastname = '',
-          this.email = '',
-          this.holidays = '',
-          this.position = '',
-          this.city = '',
-          this.address = '',
-          this.birthdate = '',
-          this.postalcode = ''
+    data: () => {
+      return {
+        address: '',
+        email: '',
+        firstname: '',
+        lastname: '',
+        postalcode: '',
+        city: '',
+        rules: {
+          required: value => !!value || 'Required.',
+          email: value => {
+            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return pattern.test(value) || 'Invalid e-mail.'
+          },
+        },
       }
-    }
+    },
+    reset: function() {
+      this.firstname = '',
+      this.lastname = '',
+      this.email = '',
+      this.holidays = '',
+      this.position = '',
+      this.city = '',
+      this.address = '',
+      this.birthdate = '',
+      this.postalcode = ''
+      }
     }
 </script>
