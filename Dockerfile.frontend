@@ -1,0 +1,15 @@
+FROM node:21-alpine
+
+WORKDIR /home/node/app
+
+EXPOSE 8080
+
+COPY entrypoint.frontend.sh /usr/local/bin/entrypoint.sh
+RUN chmod 755 /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+#USER node
+
+CMD [ "npm", "run", "serve" ]
+
+

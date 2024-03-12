@@ -1,0 +1,16 @@
+#podman compose up --build -d
+
+
+services:
+  frontend:
+    container_name: roster-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend:/home/node/app
+
+
+
