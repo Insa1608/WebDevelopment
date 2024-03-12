@@ -1,15 +1,12 @@
 let express = require('express'),
     cors = require('cors'),
-    mongoose = require('mogoose'),
-    database = require('../database'),
+    mongoose = require('mongoose'),
+    database = require('./database'),
     bodyParser = require('body-parser');
 
 //connect mongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect(database.db, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
+mongoose.connect(database.db).then(() => {
     console.log("Database connected")
 },
 error => {
@@ -31,7 +28,7 @@ app.use('/api', postAPI)
 //create port
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
-    console.log('Connected to port' + port)
+    console.log('Connected to port ' + port)
 })
 
 //error handler
