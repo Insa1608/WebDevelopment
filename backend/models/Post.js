@@ -5,6 +5,9 @@ let postSchema = new Schema({
     firstname: {
         type: String
     },
+    lastname: {
+        type: String
+    },
     city: {
         type: String
     }
