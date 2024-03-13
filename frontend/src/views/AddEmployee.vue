@@ -10,9 +10,8 @@
         >
           <v-text-field
             v-model="firstname"
-            :rules="[rules.required, postData.firstname]"
+            :rules="[postData.firstname]"
             label="First Name"
-            required
           ></v-text-field>
         </v-col>
         <v-col
@@ -23,7 +22,6 @@
             v-model="lastname"
             :rules="[rules.required, postData.lastname]"
             label="Last Name"
-            required
           ></v-text-field>
         </v-col>
         <v-col
@@ -32,7 +30,7 @@
         >
           <v-text-field
             v-model="email"
-            :rules="[rules.email, postData.email]"
+            :rules="[rules.email]"
             label="E-Mail"
             required
           ></v-text-field>
@@ -182,8 +180,7 @@
     <v-row align="center" justify="center">
       <v-col
       cols="auto">
-        <v-btn density="comfortable" color="blue">Reset</v-btn>
-          <v-btn density="comfortable" color="light-green" outlined >
+          <v-btn density="comfortable" color="light-green" >
             <v-icon left>save</v-icon> {{ saveDialog }}
           </v-btn>
       </v-col>
@@ -198,34 +195,32 @@
     props: {
       source: String
     },
-    data: () => ({
-      date: new Date().toISOString().substr(0, 10),
-      menu: false,
-      modal: false,
-      menu2: false,
-    }),
     data: () => {
       return {
-        address: '',
-        postalcode: '',
-        city: '',
+        postData: {
+          address: '',
+          email: '',
+          firstname: '',
+          lastname: '',
+          postalcode: '',
+          city: '',
+        },
+        default: {
+          address: '',
+          email: '',
+          firstname: '',
+          lastname: '',
+          postalcode: '',
+          city: '',
+        },
+        editedIndex: -1,
         rules: {
           required: value => !!value || 'Required.',
           email: value => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'Invalid e-mail.'
           },
-        },
-        postData: {
-          firstname: '',
-          lastname: '',
-          email: ''
-        },
-        default: {
-          firstname: '',
-          lastname: '',
-          email: ''
-        },
+        }
       }
     },
     watch: {
@@ -246,6 +241,7 @@
         this.dialog = false
         setTimeout(() => {
           this.postData = Object.assign({}, this.default)
+          this.editedIndex = -1
         }, 300)
       },
       savePost: async function(){
