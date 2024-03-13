@@ -15,7 +15,6 @@ error => {
 
 const postAPI = require('../backend/routes/post.route')
 const app = express()
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false

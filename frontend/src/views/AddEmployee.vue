@@ -1,7 +1,7 @@
 <template>
     <div class="home pa-10">
       <h1>Add New Employees</h1>
-      <v-form v-model="valid">
+      <v-form @submit.prevent="savePost" ref="postData" lazy-validation enctype="multipart/form-data" autocomplete="off">
     <v-container>
       <v-row>
         <v-col
@@ -10,12 +10,8 @@
         >
           <v-text-field
             v-model="firstname"
-            :counter="10"
-            :rules="[rules.required]"
             label="First Name"
-            hide-details
-            required
-          >{{  }}</v-text-field>
+          ></v-text-field>
         </v-col>
         <v-col
           cols="12"
@@ -23,11 +19,7 @@
         >
           <v-text-field
             v-model="lastname"
-            :counter="10"
-            :rules="[rules.required]"
             label="Last Name"
-            hide-details
-            required
           ></v-text-field>
         </v-col>
         <v-col
@@ -36,7 +28,7 @@
         >
           <v-text-field
             v-model="email"
-            :rules="[rules.required, rules.email]"
+            :rules="[rules.email]"
             label="E-Mail"
             required
           ></v-text-field>
@@ -192,7 +184,9 @@
       <v-col
       cols="auto">
         <v-btn density="comfortable" color="blue">Reset</v-btn>
-        <v-btn density="comfortable" color="red">Save</v-btn>
+          <v-btn density="comfortable" color="light-green" outlined >
+            <v-icon left>save</v-icon> {{ saveDialog }}
+          </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -200,7 +194,8 @@
 </template>
   
 <script>
-    export default {
+  import axios from "axios";
+  export default {
     data: () => ({
       date: new Date().toISOString().substr(0, 10),
       menu: false,
@@ -224,21 +219,6 @@
         }
       }
     },
-    watch: {
-      dialog(val) {
-        val || this.close()
-      }
-    },
-    reset: function() {
-      this.firstname = '',
-      this.lastname = '',
-      this.email = '',
-      this.holidays = '',
-      this.position = '',
-      this.city = '',
-      this.address = '',
-      this.birthdate = '',
-      this.postalcode = ''
-      }
-    }
+    
+  }
 </script>

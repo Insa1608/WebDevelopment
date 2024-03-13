@@ -8,7 +8,7 @@ let postSchema = new Schema({
     lastname: {
         type: String
     },
-    city: {
+    email: {
         type: String
     }
 },{
