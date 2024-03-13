@@ -9,7 +9,7 @@
           md="4"
         >
           <v-text-field
-            v-model="firstname"
+            v-model="postData.firstname"
             label="First Name"
           ></v-text-field>
         </v-col>
@@ -18,7 +18,7 @@
           md="4"
         >
           <v-text-field
-            v-model="lastname"
+            v-model="postData.lastname"
             label="Last Name"
           ></v-text-field>
         </v-col>
@@ -27,7 +27,7 @@
           md="4"
         >
           <v-text-field
-            v-model="email"
+            v-model="postData.email"
             :rules="[rules.email]"
             label="E-Mail"
             required
@@ -190,17 +190,49 @@
       </v-col>
     </v-row>
   </v-container>
+    <v-snackbar
+          v-model="snackbar"
+          top
+          right
+          :color="color"
+          >
+          {{text}}
+          <v-btn
+          color="black"
+          text
+          @click="snackbar = false"
+          >
+          Fermer
+          </v-btn>
+
+          </v-snackbar>
 </div>
 </template>
   
 <script>
   import axios from "axios";
   export default {
+    props: {
+      source: String
+    },
     data: () => ({
       date: new Date().toISOString().substr(0, 10),
       menu: false,
       modal: false,
-      menu2: false
+      menu2: false,
+      snackbar: false,
+      text: '',
+      color: '',
+      postData: {
+        firstname: '',
+        lastname: '',
+        email: ''
+      },
+      default: {
+        firstname: '',
+        lastname: '',
+        email: ''
+      },
     }),
     data: () => {
       return {
@@ -219,6 +251,47 @@
         }
       }
     },
+    watch: {
+      dialog (val) {
+        val || this.close()
+      }
+    },
+    methods: {
+  loadPosts: async function() {
+    let apiURL = 'http://localhost:4000/api';
+    axios.get(apiURL).then(res => {
+      this.posts = res.data;
+    }).catch(error => {
+      console.log(error)
+    });
+  },
+
+      close(){
+        this.dialog = false
+        setTimeout(() => {
+          this.postData = Object.assign({}, this.default)
+        }, 300)
+      },
+      savePost: async function(){
+        this.createPost();
+      },
+      createPost(){
+        let apiURL = 'http://localhost:4000/api/add';
+          axios.post(apiURL, this.postData).then(() => {
+            this.postData = {
+              firstname: '',
+              lastname: '',
+              email: ''
+            }
+            this.close();
+            this.loadPosts();
+            this.color = 'success'
+            this.text = 'The new employee has been successfully saved.';
+          }).catch(error => {
+            console.log(error)
+          });
+      }
+    }
     
   }
 </script>
