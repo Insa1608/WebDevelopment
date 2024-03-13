@@ -9,8 +9,10 @@
           md="4"
         >
           <v-text-field
-            v-model="postData.firstname"
+            v-model="firstname"
+            :rules="[rules.required, postData.firstname]"
             label="First Name"
+            required
           ></v-text-field>
         </v-col>
         <v-col
@@ -18,8 +20,10 @@
           md="4"
         >
           <v-text-field
-            v-model="postData.lastname"
+            v-model="lastname"
+            :rules="[rules.required, postData.lastname]"
             label="Last Name"
+            required
           ></v-text-field>
         </v-col>
         <v-col
@@ -27,8 +31,8 @@
           md="4"
         >
           <v-text-field
-            v-model="postData.email"
-            :rules="[rules.email]"
+            v-model="email"
+            :rules="[rules.email, postData.email]"
             label="E-Mail"
             required
           ></v-text-field>
@@ -45,10 +49,8 @@
         >
           <v-text-field
             v-model="city"
-            :counter="10"
             :rules="[rules.required]"
             label="City"
-            hide-details
             required
           ></v-text-field>
         </v-col>
@@ -58,10 +60,8 @@
         >
           <v-text-field
             v-model="postalcode"
-            :counter="10"
             :rules="[rules.required]"
             label="Postal Code"
-            hide-details
             required
           ></v-text-field>
         </v-col>
@@ -73,7 +73,6 @@
             v-model="address"
             :rules="[rules.required]"
             label="Address"
-            hide-details
             required
           ></v-text-field>
         </v-col>
@@ -190,22 +189,6 @@
       </v-col>
     </v-row>
   </v-container>
-    <v-snackbar
-          v-model="snackbar"
-          top
-          right
-          :color="color"
-          >
-          {{text}}
-          <v-btn
-          color="black"
-          text
-          @click="snackbar = false"
-          >
-          Fermer
-          </v-btn>
-
-          </v-snackbar>
 </div>
 </template>
   
@@ -220,26 +203,10 @@
       menu: false,
       modal: false,
       menu2: false,
-      snackbar: false,
-      text: '',
-      color: '',
-      postData: {
-        firstname: '',
-        lastname: '',
-        email: ''
-      },
-      default: {
-        firstname: '',
-        lastname: '',
-        email: ''
-      },
     }),
     data: () => {
       return {
         address: '',
-        email: '',
-        firstname: '',
-        lastname: '',
         postalcode: '',
         city: '',
         rules: {
@@ -248,7 +215,17 @@
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             return pattern.test(value) || 'Invalid e-mail.'
           },
-        }
+        },
+        postData: {
+          firstname: '',
+          lastname: '',
+          email: ''
+        },
+        default: {
+          firstname: '',
+          lastname: '',
+          email: ''
+        },
       }
     },
     watch: {
@@ -265,7 +242,6 @@
       console.log(error)
     });
   },
-
       close(){
         this.dialog = false
         setTimeout(() => {
