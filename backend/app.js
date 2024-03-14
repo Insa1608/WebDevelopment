@@ -1,8 +1,10 @@
-let express = require('express'),
-    cors = require('cors'),
-    mongoose = require('mongoose'),
-    database = require('./database'),
-    bodyParser = require('body-parser');
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const database = require('./database');
+const bodyParser = require('body-parser');
+const postAPI = require('./routes/post.route')
+const app = express()
 
 //connect mongoDB
 mongoose.Promise = global.Promise;
@@ -13,8 +15,6 @@ error => {
     console.log("Database could not be connected to: " + error)
 })
 
-const postAPI = require('./routes/post.route')
-const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
