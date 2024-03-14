@@ -177,7 +177,7 @@
       }
     },
     async mounted() {
-      const response = await axios.get("api/");
+      const response = await axios.get("api/add");
       this.posts = response.data;
     },
     methods: {

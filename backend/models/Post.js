@@ -20,8 +20,9 @@ let postSchema = new Schema({
     },
     address: {
         type: String
-    }
-
-})
+    },
+    },{
+    collection: 'addemployees'
+});
 
 module.exports= mongoose.model('Post', postSchema)
