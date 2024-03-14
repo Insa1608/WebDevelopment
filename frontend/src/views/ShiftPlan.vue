@@ -7,7 +7,7 @@
       <v-card class="mx-auto" color="light-blue" dark max-width="800">
     <v-card-text class="font-weight-bold firstname white--text">
     {{ added.firstname }} {{ added.lastname }}, {{ added.address }}, living in {{ added.postalcode }} {{ added.city }}.
-    Has {{ added.holidays }} holidays left. Works as {{ added.position }}.
+    Has {{ added.holidays }} holidays left. With Position {{ added.position }} and {{ added.small }} {{ added.medium }} {{ added.big }} hours per week.
       <v-list-item id="employee-list" class="grow">
         <v-btn @click="deleteemployee(added._id), reloadPage()" class="mx-2" small 
         color="red"> Delete </v-btn>
