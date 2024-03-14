@@ -34,9 +34,13 @@
         <v-calendar
           ref="calendar"
           v-model="today"
-          :events="events"
           color="primary"
           type="week"
+          category-show-all
+          :events="events"
+          :event-color="getEventColor"
+          first-interval="0"
+          interval-minutes="60"
         ></v-calendar>
       </v-sheet>
     </v-col>
@@ -57,6 +61,11 @@
           title: 'Insa Shift',
           start: new Date('2024-03-15 06:30'),
           end: new Date('2024-03-15 16:00'),
+        },
+        {
+          title: 'Insa Shift',
+          start: new Date('2024-03-14 06:30'),
+          end: new Date('2024-03-14 16:00'),
         },
       ],
     }),
@@ -87,7 +96,7 @@
   white-space: nowrap;
   border-radius: 2px;
   background-color: #3b6ea8;
-  color: #ffffff;
+  color: #9f4b4b;
   border: 1px solid #3b6ea8;
   font-size: 12px;
   padding: 3px;
