@@ -62,7 +62,7 @@
           <v-select
             label="Holidays"
             v-model="holidays"
-            :items="['25 d', '26 d', '27 d', '28 d', '29 d', '30 d']"
+            :items="['25', '26', '27', '28', '29', '30']"
             variant="solo-filled"
           ></v-select>
         </div>
@@ -87,7 +87,7 @@
             v-model="small"
             color="primary"
             label="25 h"
-            value="25 h"
+            value="25"
             hide-details
           ></v-checkbox>
           </div>
@@ -98,7 +98,7 @@
             v-model="medium"
             color="primary"
             label="35 h"
-            value="35 h"
+            value="35"
             hide-details
           ></v-checkbox>
           </div>
@@ -109,7 +109,7 @@
             v-model="big"
             color="primary"
             label="40 h"
-            value="40 h"
+            value="40"
             hide-details
           ></v-checkbox>
           </div>
@@ -143,15 +143,12 @@
         </v-date-picker>
       </v-menu>
     </v-flex>
-    <v-flex xs12>
-        <p v-if="successMsg != ''">{{ successMsg }}</p>
-    </v-flex>
   </v-row>
     <!--/v-container -->
   </v-form>
 </div>
 <div class="d-flex justify-center">
-    <v-btn @click="addEmployee" density="comfortable" color="light-green" >SAVE</v-btn>
+    <v-btn @click="addEmployee()" density="comfortable" color="light-green" >SAVE</v-btn>
 </div>
 </v-app>
 </template>

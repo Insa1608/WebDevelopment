@@ -1,5 +1,20 @@
 <template>
   <v-app>
+    <div class="d-flex justify-center">
+     <h1>List of Employees</h1>
+    </div>
+    <div v-for="added in addedemployees" :key="added._id">
+      <v-card class="mx-auto" color="light-blue" dark max-width="800">
+    <v-card-text class="font-weight-bold firstname white--text">
+    {{ added.firstname }} {{ added.lastname }}, {{ added.address }}, living in {{ added.postalcode }} {{ added.city }}.
+    Has {{ added.holidays }} holidays left. Works as {{ added.position }}.
+      <v-list-item id="employee-list" class="grow">
+        <v-btn @click="deleteemployee(added._id)" class="mx-2" small 
+        color="red"> Delete </v-btn>
+      </v-list-item>
+    </v-card-text>
+  </v-card>
+</div>
   <v-row>
     <v-col cols="12">
       <v-sheet>
@@ -27,50 +42,40 @@
     </v-col>
   </v-row>
   
-    <div class="d-flex justify-center">
-      <h1 id="seeEmployees">Employees</h1>
-    </div>
-    <div class="d-flex justify-center">
-      <v-col cols="6" style="margin: 0px auto;">
-        <v-text-field v-model="newTodo" label="Add Todo" solo></v-text-field>
-      </v-col>
-    </div>
-    <div class="d-flex justify-center">
-      <v-btn @click="addToDo()" color="primary">Add ToDo</v-btn>
-    </div>
   </v-app>
 </template>
 <script>
+  import axios from 'axios';
   export default {
     data: () => ({
-      today: '2019-01-08',
+      addedemployees: [],
+      today: new Date().toISOString().substr(0, 10),
       weekday: [0, 1, 2, 3, 4, 5, 6],
-      weekdays: [
-        { title: 'Sun - Sat', value: [0, 1, 2, 3, 4, 5, 6] },
-        { title: 'Mon - Sun', value: [1, 2, 3, 4, 5, 6, 0] },
-        { title: 'Mon - Fri', value: [1, 2, 3, 4, 5] },
-        { title: 'Mon, Wed, Fri', value: [1, 3, 5] },
-      ],
+      weekdays: 'Sunday - Saturday',
       events: [
         {
-          title: 'Weekly Meeting',
-          start: new Date('2019-01-07 09:00'),
-          end: new Date('2019-01-07 10:00'),
-        },
-        {
-          title: `Thomas' Birthday`,
-          start: new Date('2019-01-10'),
-          end: new Date('2019-01-10'),
-          allDay: true,
-        },
-        {
-          title: 'Mash Potatoes',
-          start: new Date('2019-01-09 12:30'),
-          end: new Date('2019-01-09 15:30'),
+          title: 'Insa Shift',
+          start: new Date('2024-03-15 06:30'),
+          end: new Date('2024-03-15 16:00'),
         },
       ],
     }),
+    methods: {
+      deleteemployee(id) {
+        axios.delete("http://localhost:4000/api/add/" + id).then(response => {
+          console.log(response.data);
+        })
+      }
+    },
+    created() {
+      // fetch added employees
+      axios.get("http://localhost:4000/api/add")
+      .then(response => (this.addedemployees = response.data))
+      .catch(error => console.log(error));
+    }
   }
+
+
 </script>
 <style scoped>
 .my-event {

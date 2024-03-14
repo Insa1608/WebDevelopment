@@ -6,14 +6,16 @@ const bodyParser = require('body-parser');
 const postAPI = require('./routes/post.route')
 const app = express()
 
+
 //connect mongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect(database.db).then(() => {
-    console.log("Database connected")
-},
-error => {
-    console.log("Database could not be connected to: " + error)
-})
+mongoose.connect(database.db)
+    .then(() => {
+        console.log("Database connected")
+    })
+    .catch( (err) => {
+        console.log("Database could not be connected to: " + err);
+    })
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
