@@ -22,7 +22,7 @@ let postSchema = new Schema({
         type: String
     },
     },{
-    collection: 'addemployees'
+    collection: 'employees'
 });
 
 module.exports= mongoose.model('Post', postSchema)
