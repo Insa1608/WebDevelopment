@@ -21,8 +21,26 @@ let postSchema = new Schema({
     address: {
         type: String
     },
+    holidays: {
+        type: String
+    },
+    position: {
+        type: String
+    },
+    small: {
+        type: String
+    },
+    medium: {
+        type: String
+    },
+    big: {
+        type: String
+    },
+    date: {
+        type: Date
+    }
     },{
     collection: 'employees'
 });
 
-module.exports= mongoose.model('Post', postSchema)
+module.exports = mongoose.model('Post', postSchema)

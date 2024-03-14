@@ -1,4 +1,5 @@
 <template>
+  <v-app>
   <v-row>
     <v-col cols="12">
       <v-sheet>
@@ -25,6 +26,19 @@
       </v-sheet>
     </v-col>
   </v-row>
+  
+    <div class="d-flex justify-center">
+      <h1 id="seeEmployees">Employees</h1>
+    </div>
+    <div class="d-flex justify-center">
+      <v-col cols="6" style="margin: 0px auto;">
+        <v-text-field v-model="newTodo" label="Add Todo" solo></v-text-field>
+      </v-col>
+    </div>
+    <div class="d-flex justify-center">
+      <v-btn @click="addToDo()" color="primary">Add ToDo</v-btn>
+    </div>
+  </v-app>
 </template>
 <script>
   export default {

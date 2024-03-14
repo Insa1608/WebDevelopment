@@ -15,10 +15,8 @@ error => {
     console.log("Database could not be connected to: " + error)
 })
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}))
 app.use(cors());
 
 //API

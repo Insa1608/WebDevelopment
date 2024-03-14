@@ -61,6 +61,7 @@
         <div class="form-field">
           <v-select
             label="Holidays"
+            v-model="holidays"
             :items="['25 d', '26 d', '27 d', '28 d', '29 d', '30 d']"
             variant="solo-filled"
           ></v-select>
@@ -70,10 +71,10 @@
     <v-row align="center" justify="center">
         <div class="form-field">
           <v-legend>Position</v-legend>
-          <v-radio-group inline>
-          <v-radio label="MTA" value="one"></v-radio>
-          <v-radio label="BTA" value="two"></v-radio>
-          <v-radio label="MFA" value="three"></v-radio>
+          <v-radio-group inline v-model="position">
+          <v-radio label="MTA" value="MTA"></v-radio>
+          <v-radio label="BTA" value="BTA"></v-radio>
+          <v-radio label="MFA" value="MFA"></v-radio>
           </v-radio-group>
         </div>
     </v-row>
@@ -83,10 +84,10 @@
         <v-row align="center" justify="center">
           <div>
             <v-checkbox
-            v-model="ex4"
+            v-model="small"
             color="primary"
             label="25 h"
-            value="primary"
+            value="25 h"
             hide-details
           ></v-checkbox>
           </div>
@@ -94,10 +95,10 @@
         <v-row align="center" justify="center">
           <div>
             <v-checkbox
-            v-model="ex4"
+            v-model="medium"
             color="primary"
             label="35 h"
-            value="primary"
+            value="35 h"
             hide-details
           ></v-checkbox>
           </div>
@@ -105,10 +106,10 @@
         <v-row align="center" justify="center">
           <div>
             <v-checkbox
-            v-model="ex4"
+            v-model="big"
             color="primary"
             label="40 h"
-            value="primary"
+            value="40 h"
             hide-details
           ></v-checkbox>
           </div>
@@ -165,6 +166,12 @@
         postalcode: '',
         city: '',
         address: '',
+        holidays:'',
+        position: '',
+        small: '',
+        medium: '',
+        big: '',
+        date: '',
         rules: {
           required: value => !!value || 'Required.',
           email: value => {
@@ -181,7 +188,13 @@
           email: this.email,
           postalcode: this.postalcode,
           city: this.city,
-          address: this.address
+          address: this.address,
+          holidays: this.holidays,
+          position: this.position,
+          small: this.small,
+          medium: this.medium,
+          big: this.big,
+          date: this.date,
         }).then(response => {
           this.message = response.data;
         });
