@@ -35,9 +35,9 @@ postRoute.post('/add', async (req, res) => {
 })
 
 postRoute.delete('/add/:id', async (req, res) => {
-    const { id } = req.params
+    const query = { _id: req.params.id }
     try {
-        const removed = await PostModel.findByIdAndDelete(id)
+        const removed = await PostModel.findByIdAndDelete(query)
         if (!removed) throw Error('Something went wrong ')
         res.status(200).json(removed)
     } catch (error) {

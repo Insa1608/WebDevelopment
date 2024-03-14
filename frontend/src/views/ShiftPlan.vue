@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div class="d-flex justify-center">
+    <div class="home pa-10">
      <h1>List of Employees</h1>
     </div>
     <div v-for="added in addedemployees" :key="added._id">
@@ -9,7 +9,7 @@
     {{ added.firstname }} {{ added.lastname }}, {{ added.address }}, living in {{ added.postalcode }} {{ added.city }}.
     Has {{ added.holidays }} holidays left. Works as {{ added.position }}.
       <v-list-item id="employee-list" class="grow">
-        <v-btn @click="deleteemployee(added._id)" class="mx-2" small 
+        <v-btn @click="deleteemployee(added._id), reloadPage()" class="mx-2" small 
         color="red"> Delete </v-btn>
       </v-list-item>
     </v-card-text>
@@ -22,7 +22,7 @@
           v-model="weekday"
           :items="weekdays"
           class="ma-2"
-          label="weekdays"
+          label="Sunday - Saturday"
           variant="outlined"
           dense
           hide-details
@@ -65,7 +65,10 @@
         axios.delete("http://localhost:4000/api/add/" + id).then(response => {
           console.log(response.data);
         })
-      }
+      },
+      reloadPage() {
+        window.location.reload()
+      },
     },
     created() {
       // fetch added employees

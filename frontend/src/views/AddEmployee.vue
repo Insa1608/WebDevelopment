@@ -148,7 +148,7 @@
   </v-form>
 </div>
 <div class="d-flex justify-center">
-    <v-btn @click="addEmployee()" density="comfortable" color="light-green" >SAVE</v-btn>
+    <v-btn @click="addEmployee(), reloadPage()" density="comfortable" color="light-green" >SAVE</v-btn>
 </div>
 </v-app>
 </template>
@@ -196,9 +196,8 @@
           this.message = response.data;
         });
       },
-      async removeEmployee(item, i) {
-        await axios.delete("api/add" + item._id);
-        this.posts.splice(i, 1);
+      reloadPage() {
+        window.location.reload()
       },
     }   
   }
