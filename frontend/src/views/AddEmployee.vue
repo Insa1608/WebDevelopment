@@ -117,31 +117,34 @@
   <v-row align="center" justify="center">
     <v-flex xs12 sm6 md4>
       <v-menu
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        :return-value.sync="date"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        min-width="290px">
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            v-model="date"
-            label="Birthdate"
-            prepend-icon=""
-            readonly
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker v-model="date" no-title scrollable>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-          <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-        </v-date-picker>
-      </v-menu>
+      ref="menu"
+      v-model="menu"
+      :close-on-content-click="false"
+      transition="scale-transition"
+      offset-y
+      full-width
+      min-width="290px"
+    >
+      <template v-slot:activator="{ on }">
+        <v-text-field
+          v-model="date"
+          label="Birthday"
+          readonly
+          v-on="on"
+        ></v-text-field>
+      </template>
+      <v-date-picker
+        ref="picker"
+        locale="jp-ja"
+        v-model="date"
+        :day-format="date => new Date(date).getDate()"
+        :max="new Date().toISOString().substr(0, 10)"
+        :picker-date="pickerDate"
+        min="1950-01-01"
+        @change="save"
+      ></v-date-picker>
+    </v-menu>
+
     </v-flex>
   </v-row>
     <!--/v-container -->
@@ -168,7 +171,9 @@
         small: '',
         medium: '',
         big: '',
-        date: '',
+        date: null,
+        menu: false,
+        pickerDate: '1995-1-1',
         rules: {
           required: value => !!value || 'Required.',
           email: value => {
@@ -177,6 +182,14 @@
           },
         },
       }),
+      watch: {
+        menu (val) {
+          val && setTimeout(() => (
+          this.$refs.picker.activePicker = 'YEAR',
+          this.pickerDate = null
+        ))
+      },
+      },
     methods: {
       async addEmployee() {
         axios.post("http://localhost:4000/api/add", {
@@ -199,6 +212,10 @@
       reloadPage() {
         window.location.reload()
       },
+      save (date) {
+      this.$refs.menu.save(date)
+      this.pickerDate = date;
+    },
     }   
   }
 
