@@ -1,8 +1,9 @@
 <template>
+  <v-app>
     <div class="home pa-10">
-      <h1>Add New Employees</h1>
+      <h1 id="addemployee">Add New Employees</h1>
       <v-form autocomplete="off">
-    <v-container fluid>
+    <!--v-container fluid -->
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
@@ -124,8 +125,7 @@
         transition="scale-transition"
         offset-y
         full-width
-        min-width="290px"
-      >
+        min-width="290px">
         <template v-slot:activator="{ on }">
           <v-text-field
             v-model="date"
@@ -146,21 +146,19 @@
         <p v-if="successMsg != ''">{{ successMsg }}</p>
     </v-flex>
   </v-row>
-      <v-row align="center" justify="center">
-          <v-btn @click="addEmployee" density="comfortable" color="light-green" >SAVE</v-btn>
-      </v-row>
-    </v-container>
+    <!--/v-container -->
   </v-form>
 </div>
+<div class="d-flex justify-center">
+    <v-btn @click="addEmployee" density="comfortable" color="light-green" >SAVE</v-btn>
+</div>
+</v-app>
 </template>
   
 <script>
   import axios from 'axios';
   export default {
-    name: 'App',
-    data() {
-      return {
-        posts: [],
+    data: () => ({
         firstname: '',
         lastname: '',
         email: '',
@@ -174,30 +172,19 @@
             return pattern.test(value) || 'Invalid e-mail.'
           },
         },
-      }
-    },
-    async mounted() {
-      const response = await axios.get("api/add");
-      this.posts = response.data;
-    },
+      }),
     methods: {
-      async addEmployee(e) {
-        e.preventDefault();
-        const response = await axios.get("api/add", {
+      async addEmployee() {
+        axios.post("http://localhost:4000/api/add", {
           firstname: this.firstname,
           lastname: this.lastname,
           email: this.email,
           postalcode: this.postalcode,
           city: this.city,
-          address: this.address,
+          address: this.address
+        }).then(response => {
+          this.message = response.data;
         });
-        this.posts.push(response.data);
-        this.firstname = '';
-        this.lastname = '';
-        this.email = '';
-        this.postalcode = '';
-        this.city = '';
-        this.address = '';
       },
       async removeEmployee(item, i) {
         await axios.delete("api/add" + item._id);
