@@ -35,7 +35,7 @@
           ref="calendar"
           v-model="today"
           color="primary"
-          type="week"
+          type="day"
           category-show-all
           :events="events"
           :event-color="getEventColor"
@@ -55,7 +55,7 @@
       addedemployees: [],
       today: new Date().toISOString().substr(0, 10),
       weekday: [0, 1, 2, 3, 4, 5, 6],
-      weekdays: 'Sunday - Saturday',
+      weekdays: "Saturday-Sunday",
       events: [
         {
           title: 'Insa Shift',
