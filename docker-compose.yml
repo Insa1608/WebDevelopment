@@ -1,6 +1,5 @@
 #podman compose up --build -d
 
-
 services:
   frontend:
     container_name: roster-frontend
@@ -11,7 +10,6 @@ services:
       - 8080:8080
     volumes:
       - ./frontend:/home/node/app
-
   backend:
     container_name: roster-backend
     build:
