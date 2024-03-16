@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+//here the schema of the mongodb is definded
 let postSchema = new Schema({
     firstname: {
         type: String,
@@ -40,7 +40,8 @@ let postSchema = new Schema({
         type: Date
     },
     },{
+        //the collection of the mongodb is defined here
         collection: 'employees'
     });
-
+//the module is exported for further use in other files
 module.exports = mongoose.model('Post', postSchema)

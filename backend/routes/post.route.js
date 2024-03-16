@@ -1,9 +1,11 @@
+//express is used here
 const express = require('express');
+//a router is started
 const postRoute = express.Router();
-
+//the schema is imported here
 let PostModel = require('../models/Post');
 
-//index
+//index Route is defined 
 postRoute.route('/').get((req, res) => {
     PostModel.find().then((data) => {
         res.status(200).json(data);
@@ -13,6 +15,7 @@ postRoute.route('/').get((req, res) => {
     })
 })
 
+//get route is defined
 postRoute.get('/add', async (req, res) => {
     try {
         const addemployee = await PostModel.find()
@@ -23,6 +26,7 @@ postRoute.get('/add', async (req, res) => {
     }
 })
 
+//post route is defined
 postRoute.post('/add', async (req, res) => {
     const newemployee = new PostModel(req.body)
     try {
@@ -34,6 +38,7 @@ postRoute.post('/add', async (req, res) => {
     }
 })
 
+//delete route is defined
 postRoute.delete('/add/:id', async (req, res) => {
     const query = { _id: req.params.id }
     try {
@@ -45,4 +50,5 @@ postRoute.delete('/add/:id', async (req, res) => {
     }
 })
 
+//module is exported for further use
 module.exports = postRoute;
