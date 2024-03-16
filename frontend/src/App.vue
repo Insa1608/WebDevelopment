@@ -79,9 +79,10 @@
     data: () => ({ 
       drawer: null,
       items: [
-        { title: 'Shift Plan', icon: 'mdi-calendar-blank', to: '/' },
+        { title: 'List Of Employees', icon: 'mdi-list-box-outline', to: '/list' },
         { title: 'Add New Employee', icon: 'mdi-account-plus', to: '/add'},
-        { title: 'About', icon: 'mdi-help-box', to: '/about'}
+        { title: 'Shift Plan', icon: 'mdi-calendar-blank', to: '/shift'},
+        { title: 'About', icon:'mdi-help-box', to:'/about'}
       ], 
     }),
   }

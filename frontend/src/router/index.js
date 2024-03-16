@@ -2,12 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import ShiftPlan from '../views/ShiftPlan.vue'
 import AddEmployee from '../views/AddEmployee.vue'
+import List from '../views/List.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/shift',
     name: 'shiftplan',
     component: ShiftPlan
   },
@@ -15,6 +16,11 @@ const routes = [
     path: '/add',
     name: 'addemployee',
     component: AddEmployee
+  },
+  {
+    path: '/list',
+    name: 'listofemployee',
+    component: List
   },
   {
     path: '/about',
