@@ -22,14 +22,17 @@
   import axios from 'axios';
   export default {
     data: () => ({
+      // Array to fetch the data from the database
       addedemployees: [],
     }),
     methods: {
       deleteemployee(id) {
+        // delete added employees
         axios.delete("http://localhost:4000/api/add/" + id).then(response => {
           console.log(response.data);
         })
       },
+      // reload Page so that the deleted employee visably disappear
       reloadPage() {
         window.location.reload()
       },
@@ -44,28 +47,5 @@
 
 
 </script>
-<style scoped>
-.my-event {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  border-radius: 2px;
-  background-color: #3b6ea8;
-  color: #9f4b4b;
-  border: 1px solid #3b6ea8;
-  font-size: 12px;
-  padding: 3px;
-  cursor: pointer;
-  margin-bottom: 1px;
-  left: 4px;
-  margin-right: 8px;
-  position: relative;
-}
 
-.my-event.with-time {
-  position: absolute;
-  right: 4px;
-  margin-right: 0px;
-}
-</style>
 

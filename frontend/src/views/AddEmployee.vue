@@ -3,7 +3,6 @@
     <div class="home pa-10">
       <h1 id="addemployee">Add New Employees</h1>
       <v-form autocomplete="off">
-    <!--v-container fluid -->
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
@@ -147,7 +146,6 @@
 
     </v-flex>
   </v-row>
-    <!--/v-container -->
   </v-form>
 </div>
 <div class="d-flex justify-center">
@@ -175,6 +173,7 @@
         menu: false,
         pickerDate: '1995-1-1',
         rules: {
+          //rule that the field turn red when nothing is entered
           required: value => !!value || 'Required.',
           email: value => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -183,6 +182,7 @@
         },
       }),
       watch: {
+        // watches the Birthday picker
         menu (val) {
           val && setTimeout(() => (
           this.$refs.picker.activePicker = 'YEAR',
@@ -191,6 +191,7 @@
       },
       },
     methods: {
+      // add the employees to the database at the endpoint /add
       async addEmployee() {
         axios.post("http://localhost:4000/api/add", {
           firstname: this.firstname,
@@ -209,10 +210,12 @@
           this.message = response.data;
         });
       },
+      //reloads the page so that the added information disappear and a new employee can be added
       reloadPage() {
         window.location.reload()
       },
       save (date) {
+      // save method for the birthday picker
       this.$refs.menu.save(date)
       this.pickerDate = date;
     },

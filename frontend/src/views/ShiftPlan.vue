@@ -79,18 +79,23 @@
       this.$refs.calendar.checkChange()
     },
     methods: {
+      //returns a random color out of the array colors for every event
       getEventColor (event) {
         return event.color
       },
+      // to switch back to today when the button TODAY is pressed
       setToday () {
         this.focus = ''
       },
+      // method to to show previes dates
       prev () {
         this.$refs.calendar.prev()
       },
+      // method to show the next dates
       next () {
         this.$refs.calendar.next()
       },
+      //fetches a random event which is 8 hours long
       fetchEvents ({ start, end }) {
         const events = []
         const usedDateByCategory = new Map()
@@ -126,6 +131,7 @@
 
         this.events = events
       },
+      // random function
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
