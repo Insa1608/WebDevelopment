@@ -1,0 +1,15 @@
+## Here Are some Test-Cases for the Roster-App
+
+To test if the application is running go to the side "Add New Employee" (localhost:8080/add) and
+add some information to every field. Then press the button "SAVE". The side will refresh after you
+click on save so that every field is empty again. After that change to the side "List Of Employees"
+(localhost:8080/list). The newly added "Employee" is listed here.
+
+If you press the delete button of a choosen employee on the side "List Of Employees" this employee
+will disappear from that side. 
+
+Now go back to the "Add New Employee" side and add some information but do not fill the required field
+"First Name". A "required" message under that field will appear and the underscore change to red. 
+If you click the "SAVE" button - and not fill the "First Name" field the side will refresh again 
+and your information are gone but the employee will not appear on the "List Of Employees" side because
+the "First Name" field is set on required for the mongodb. 
