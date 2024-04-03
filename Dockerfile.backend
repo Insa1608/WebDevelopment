@@ -5,7 +5,6 @@ WORKDIR /home/node/app
 EXPOSE 4000
 
 COPY entrypoint.backend.sh /usr/local/bin/entrypoint.sh
-RUN chmod 755 /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 #USER node

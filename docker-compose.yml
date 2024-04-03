@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile.frontend
     ports:
       - 8080:8080
+    privileged: true
     volumes:
       - ./frontend:/home/node/app
   backend:
@@ -19,4 +20,5 @@ services:
       - 4000:4000
     volumes: 
      - ./backend:/home/node/app
+
 
